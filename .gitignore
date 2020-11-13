@@ -1,2 +1,4 @@
 #ignora file notebook temporanei
 .ipynb_checkpoints/
+#ignora risultati
+results/
