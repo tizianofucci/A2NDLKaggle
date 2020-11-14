@@ -2,3 +2,5 @@
 .ipynb_checkpoints/
 #ignora risultati
 results/
+#ignora salvataggi locali
+weights/
