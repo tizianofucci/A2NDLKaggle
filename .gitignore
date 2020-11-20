@@ -1,7 +1,19 @@
-#ignora file notebook temporanei
+#ignore temporary notebooks
 .ipynb_checkpoints/
-#ignora risultati
+
+#ignore temporary results
 results/
-#ignora salvataggi locali
+
+#ignore local saves
 weights/
 my_model/
+
+#ignore TeX auxiliary files
+Report/images/*.pdf
+*.aux
+*.log
+*.out
+*.pdf
+*.synctex.gz
+*.toc
+
