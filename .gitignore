@@ -9,11 +9,12 @@ weights/
 my_model/
 
 #ignore TeX auxiliary files
-Report/images/*.pdf
 *.aux
 *.log
 *.out
-*.pdf
 *.synctex.gz
 *.toc
+
+#ignore temporary PDF
+Report/Report.pdf
 
