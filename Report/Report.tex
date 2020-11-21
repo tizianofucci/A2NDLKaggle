@@ -134,29 +134,55 @@ To submit a prediction, it is necessary to produce a .csv file containing the pr
 				\item \texttt{start\_f}: the number of initial filters;
 				\item \texttt{depth}: the number of convolutional layers;
 				\item the learning rate;
+				\item the batch size;
 				\item the size of the input image;
 				\item the shape of the neuron activation function;	
 				\item the number of fully connected layers.
 			\end{itemize}
 	After few experiments, we found that the best model was a convolutional neural network having \texttt{start\_f = 9} and \texttt{depth = 7}. The complete model of the network is descripted in the attached file \texttt{HomeworkImages.ipynb}.
 		\subsection{Score}
-	The best score of the network was 0.85555.
+	The best score of the network was 0.85555.\newpage
 		\subsection{Plots}
+		Orange = validation\\
+		Grey = training
+		\begin{figure}[H]
+			\includegraphics[scale = 0.6, center]{ex-Novo accuracy}
+			\caption{Accuracy plot}
+		\end{figure}
+		\begin{figure}[H]
+		\includegraphics[scale = 0.6, center]{ex-Novo loss}
+		\caption{Loss plot}
+		\end{figure}
 		\subsection{Comments}
 		
-		\section{Transfer learning}
-	The final version of the ex-novo architecture was pretty accurate, but we could not achieve better results by just changing the parameters. We decided to use a pre-trained, reliable and successful architecture.
-			
+		\section{Transfer learning(VGG)}
+	The final version of the ex-novo architecture was pretty accurate, but we could not achieve better results by just changing the parameters. We decided to use a pre-trained, reliable and successful architecture.\\
+	Our first try was with VGG16, because we've seen it during lecture, also in this case we made many experiments each one with a different parameter configuration:
+	\begin{itemize}
+		\item \texttt{freeze\_until}: the layer of the network from which we want to fine-tune;
+		\item \texttt{depth}: the number of convolutional layers;
+		\item the learning rate;
+		\item the size of the input image;
+		\item the shape of the neuron activation function;	
+		\item the number of fully connected layers.
+		\item the number of neurons in fully connected layers.
+	\end{itemize}
 		\subsection{Score}
+			The best score of the network was 0.89333.\\
+			Obtained setting: \texttt{freeze\_until = 11} and one fully connnected layer with 32 neurons before the softmax layer.
 		\subsection{Plots}
 		\subsection{Comments}
+
+\section{Transfer learning(ImageResNetV2)}
+For our last attempt we decided to use ImageResNetV2, because we have seen thati it is the best performing on the imagenet dataset, the approach in this case has been similar to the one with VGG since we only changed the backbone, one signifacant change that has been apported is the replacement of the fully connected layer with a Global Average Pooling.
+\subsection{Score}
+	The best score of the network was 0.96888.\\
+Obtained setting: \texttt{freeze\_until = 150} and images resized at 348*522 taken in batches of dimension=8.
+\subsection{Plots}
+\subsection{Comments}		
 		
 		
-		
-	\begin{figure}[H]
-			\includegraphics[scale = 0.6, center]{sysarch}
-			\caption{System architecture}
-	\end{figure}
+	
 	Users and authorities are provided with mobile devices and access the service through
 	the SafeStreets mobile app. The mobile app communicates with the application layer, which
 	is made by one or more application servers, linked to the database servers. The scale-out approach allows to adjust the number of hardware resources at any time. For what concerns the data access layer, database servers contain sensitive information, such as password hashes, license plate numbers, identification numbers and so on, so it is important to protect all the back-end of the application. In order to do this, the application and data access levels are protected by a firewall that performs traffic control at the level of the single packet, creating a DMZ in which the communication is safe. Another solution to reduce the computational load, as well as the messages, is the use of caches in the presentation tier: the mobile app stores on the mobile device memory part of the user's data, such as the sent reports and the results of reports evaluation, in order to make them available even when the users (or the authorities) have no access to Internet. This avoids many repeated requests for the same data, with heavy impact on the application and data access layers' performance.
