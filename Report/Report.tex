@@ -75,132 +75,84 @@ contents}}
 			The homework consists in an image classification problem on the proposed dataset. In particular, it is required to classify images depicting groups of people based on the number of masked people. In the specific, the solution must discriminate between images depending on the following cases:
 
 \begin{enumerate} 
-	\item all the people in the image are wearing a mask;
 	\item no person in the image is wearing a mask;
+	\item all the people in the image are wearing a mask;
 	\item someone in the image is not wearing a mask.
 \end{enumerate}
-In the following 3 examples of image from the training belonging to the three cases.
+In the following figure, one sample image for each class is shown.
+
+\begin{figure}[H]
+\renewcommand*\thesubfigure{\arabic{subfigure}} 
+\centering
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{image0}
+  \caption{}
+  \label{fig:sub1}
+\end{subfigure}
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{image1}
+  \caption{}
+  \label{fig:sub2}
+\end{subfigure}
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{image2}
+  \caption{}
+  \label{fig:sub3}
+\end{subfigure}
+\end{figure}
 
 Thus, the classification is performed on 3 different classes. Being a classification problem, given an image, the goal is to predict the correct class label.
 
+	\section{Dataset}
 
-			The RASD completely describes the system in terms of functional and nonfunctional requirements and
-			serves as a contractual basis between the customer and the developer and it must be written in the language of
-			the customer's domain of business/expertise, the DD's purpose instead is to provide a description for how the new
-			system will be constructed, it provides a description of the system architecture, software, hardware, database
-			design, and security.
-
-
-			In particular this document will explain the following topics:
+The dataset is composed by .jpg images of different size, divided in two folders:
 			\begin{itemize}
-				\item high level architecture and its components' requirements;
-				\item run-time behavior;
-				\item design patterns;
-				\item additional user interfaces information;
-				\item implementation, integration and testing plan.
+				\item training (5614 images)
+				\item test (450 images)
 			\end{itemize}
-		\section{Scope}
-			Here a review of which is the scope of the application is made referring to what	has been stated in the RASD.
+
+A JSON file, containing the labels of the training images, is attached to the dataset.
+
+	\section{Validation set}
+
+No automatic validation set is provided. This means that a subset of the training set must be used to perform validation.
 
 
-			SafeStreets is an application to be used both from civilians (users) and authorities, in order to help the latter and
-			reduce traffic violations. Registered authorities can automatically receive reports made by users, so the service acts
-			as an intermediary. 
+	\section{Evaluation}
+Submissions are evaluated on multiclass accuracy, which is simply the average number of observations with the correct label.
+To submit a prediction, it is necessary to produce a .csv file containing the predictions associated to each test image. This file has to be submitted to the Kaggle page of the competition to obtain the accuracy score on the test set.
 
-		\section{Definitions, acronyms, abbreviations}
-			\subsection{Definitions}
-				\begin{itemize}
-				\item \textbf{User}: a civilian customer that can use the application to:
-					\begin{itemize}
-					\item notify authorities of some violation;
-					\item check which are the most dangerous (i.e. with the most violations) streets.
-					\end{itemize}
-				In this document, ``user", ``citizen" and ``civilian" are completely equivalent, where not specified.
-				\item \textbf{Authority}: a member of the local police who has access to reports made by users. The
-					authorities evaluate the reports sent by the user to determine if the violation stands.
-				\item \textbf{Report}: a message consisting of:
-					\begin{itemize}
-					\item a picture showing the car in order to show the occurring violation;
-					\item date and time of the picture;
-					\item GPS position of the place where the violation occurred;
-					\item the street where the violation occurred (automatically retrieved from the geographical position);
-					\item the type of the violation (input by the user)
-					\end{itemize}
-				\item \textbf{Available}: a report is available for an authority if its position is within the municipality assigned
-					to the authority.
-				\item \textbf{Violation}: a situation that, according to the user who sent the report, is a violation of the
-					traffic laws.
-				\item \textbf{Intervention}: a brief text suggesting a possible solution in order to improve safety and
-					discourage future violations.
-				\end{itemize}
-			\subsection{Acronyms}
-				\begin{itemize}
-				\item \textbf{AES}: \emph{Advanced Encryption Standard.}
-				\item \textbf{API}: \emph{Application Programming Interface.}
-				\item \textbf{DB}: \emph{Data Base.}			
-				\item \textbf{DBMS}: \emph{Data Base Management System.}
-				\item \textbf{DD}: \emph{Design Document.}
-				\item \textbf{DMZ}: \emph{DeMilitarized Zone.}
-				\item \textbf{GPS}: \emph{Global Positioning System.}
-				\item \textbf{HTML}: \emph{HyperText Markup Language.}
-				\item \textbf{ICM}: \emph{Item-Content Matrix.}
-				\item \textbf{IEEE}: \emph{Institute of Electrical and Electronics Engineers.}
-				\item \textbf{MVC}: \emph{Model-View-Controller.}
-				\item \textbf{OCR}: \emph{Optical Character Recognition.}
-				\item \textbf{PKC}: \emph{Public Key Cryptography.}
-				\item \textbf{RASD}: \emph{Requirements Analysis and Specifications Document.}
-				\item \textbf{RDBMS}: \emph{Relational Data Base Management System.}
-				\item \textbf{REST}: \emph{REpresentational State Transfer.}
-				\item \textbf{SHA-3}: \emph{Secure Hash Algorithm 3.}	
-				\item \textbf{SS}: \emph{SafeStreets.}	
-				\item \textbf{UI}: \emph{User Interface.}
-				\item \textbf{UML}: \emph{Unified Modeling Language.}
-				\item \textbf{UX}: \emph{User eXperience.}
-				\item \textbf{XML}: \emph{eXtensible Markup Language.}
-				\end{itemize}
-		\section{Revision history}
-			\begin{itemize}
-				\item \textbf{Version 1.0}:
-					\\ First release.
-				\item \textbf{Version 1.1}:
-				\begin{itemize}
-					\item Improve class diagram;
-					\item correct some typing errors;
-					\item correct some errors in 2.4;
-					\item other minor fixes.
-				\end{itemize}
-			\end {itemize}
-		\section{Reference documents}
-			The main reference documents are the ``SafeStreets Mandatory Project Assignment" specification document and the SafeStreets RASD. The complete list of references is provided in chapter 6.
-
-		\section{Document structure}
-			\begin{itemize}
-				\item \textbf{Chapter 1} provides a brief explanation on the DD purpose and a quick introduction
-					SafeStreets.
-				\item \textbf{Chapter 2} aims to provide a description of the system's architecture.
-				\item \textbf{Chapter 3} specifies the design of user interfaces and describes the user-application
-					interaction.
-				\item \textbf{Chapter 4} contains requirements traceability.
-				\item \textbf{Chapter 5} describes the implementation plan.
-				\item \textbf{Chapter 6} shows the effort of each group member.
-				\item \textbf{Chapter 7} contains all the references used to make this document.
-			\end{itemize}
 	%end of first chapter
 
-	\chapter{Architectural design}
-		\section{Overview:	high-level	components	and	their	interaction}
-	The application is built following the principles of the three-tier architecture: the three logic layers of presentation, 				application and data access rely on three corresponding hardware layers. This architecture is preferred to one-tier and 			two-tier architectures due to some important characteristics, some of which are:
-	\begin{itemize}
-	\item \emph{Flexibility}: each tier can be manged or scaled independently at any time, without affecting the others;
-	\item \emph{Scalability}: following a scale-out approach, performances can be improved through node replication, without affecting the other tiers.
-	Load balancing systems distribute the working load among the nodes;
-	\item \emph{Maintainability}: because each tier is independent from the others, updates or changes can be released
-	without affecting the whole system;
-	\item \emph{Availability}: with this architecture, it is less likely to have failures that compromise the whole application.
-	Load balancing and node replication minimize the performance loss when a failure occurs.
-	\end{itemize}
-	These aspects will be even better explained in section 2.6.
-	A general view of the system architecture is provided in the following diagram, which provides an overview of the system architecture:
+	\chapter{Neural network architecture}
+		\section{Ex-novo architecture}
+	First, we tried to build a sequential neural network from scratch: we made many experiments, each one with a slightly different parameter configuration. Among them:
+			\begin{itemize}
+				\item \texttt{start\_f}: the number of initial filters;
+				\item \texttt{depth}: the number of convolutional layers;
+				\item the learning rate;
+				\item the size of the input image;
+				\item the shape of the neuron activation function;	
+				\item the number of fully connected layers.
+			\end{itemize}
+	After few experiments, we found that the best model was a convolutional neural network having \texttt{start\_f = 9} and \texttt{depth = 7}. The complete model of the network is descripted in the attached file \texttt{HomeworkImages.ipynb}.
+		\subsection{Score}
+	The best score of the network was 0.85555.
+		\subsection{Plots}
+		\subsection{Comments}
+		
+		\section{Transfer learning}
+	The final version of the ex-novo architecture was pretty accurate, but we could not achieve better results by just changing the parameters. We decided to use a pre-trained, reliable and successful architecture.
+			
+		\subsection{Score}
+		\subsection{Plots}
+		\subsection{Comments}
+		
+		
+		
 	\begin{figure}[H]
 			\includegraphics[scale = 0.6, center]{sysarch}
 			\caption{System architecture}
@@ -349,6 +301,7 @@ The system also includes a recommender system: exploiting data mining techniques
 			\item SafeStreets Requirement Analysis and Specification Document - \emph{Alberto Frangi, Tiziano Fucci};
 			\item 1016-1987, IEEE Recommended Practice for Software Design Descriptions - \emph{IEEE}.
 		\end{itemize}
+		\section{Links}
 		\section{Tools}	
 		\begin{itemize}		
 		\item StarUML 3.1.0 - to draw and export UML diagrams;
