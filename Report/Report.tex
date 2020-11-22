@@ -141,26 +141,24 @@ To submit a prediction, it is necessary to produce a .csv file containing the pr
 			\end{itemize}
 	After few experiments, we found that the best model was a convolutional neural network having \texttt{start\_f = 9} and \texttt{depth = 7}. The complete model of the network is descripted in the attached file \texttt{HomeworkImages.ipynb}.
 		\subsection{Score}
-	The best score of the network was 0.85555.\newpage
-		\subsection{Plots}
-		Orange = validation\\
-		Grey = training
+	The best score of the network was 0.85555.
+		\subsection{Diagrams}
+Here we show how loss and accuracy changed during the network training, both for the training (grey) and the validation set (orange).
 		\begin{figure}[H]
-			\includegraphics[scale = 0.6, center]{ex-Novo accuracy}
+			\includegraphics[scale = 0.5, center]{ex-Novo accuracy}
 			\caption{Accuracy plot}
 		\end{figure}
 		\begin{figure}[H]
-		\includegraphics[scale = 0.6, center]{ex-Novo loss}
+		\includegraphics[scale = 0.5, center]{ex-Novo loss}
 		\caption{Loss plot}
 		\end{figure}
 		\subsection{Comments}
 		
-		\section{Transfer learning(VGG)}
+		\section{Transfer learning with VGG}
 	The final version of the ex-novo architecture was pretty accurate, but we could not achieve better results by just changing the parameters. We decided to use a pre-trained, reliable and successful architecture.\\
-	Our first try was with VGG16, because we've seen it during lecture, also in this case we made many experiments each one with a different parameter configuration:
+	Our first try was with VGG16, because we've seen it during the lectures. Also in this case we made many experiments, each one with a different parameter configuration:
 	\begin{itemize}
 		\item \texttt{freeze\_until}: the layer of the network from which we want to fine-tune;
-		\item \texttt{depth}: the number of convolutional layers;
 		\item the learning rate;
 		\item the size of the input image;
 		\item the shape of the neuron activation function;	
@@ -168,27 +166,35 @@ To submit a prediction, it is necessary to produce a .csv file containing the pr
 		\item the number of neurons in fully connected layers.
 	\end{itemize}
 		\subsection{Score}
-			The best score of the network was 0.89333.\\
-			Obtained setting: \texttt{freeze\_until = 11} and one fully connnected layer with 32 neurons before the softmax layer.\newpage
-		\subsection{Plots}
+The best score of the network was 0.89333, obtained with the following settings: 
+	\begin{itemize}
+		\item	\texttt{freeze\_until = 11};
+		\item one fully connnected layer with 32 neurons before the softmax layer.
+	\end{itemize}
+
+		\subsection{Diagrams}
 		
 		Orange = validation\\
 		Grey = training
 		\begin{figure}[H]
-			\includegraphics[scale = 0.6, center]{vgg accuracy}
+			\includegraphics[scale = 0.5, center]{vgg accuracy}
 			\caption{Accuracy plot}
 		\end{figure}
 		\begin{figure}[H]
-			\includegraphics[scale = 0.6, center]{vgg loss}
+			\includegraphics[scale = 0.5, center]{vgg loss}
 			\caption{Loss plot}
 		\end{figure}
 		\subsection{Comments}
 
-\section{Transfer learning(ImageResNetV2)}
-For our last attempt we decided to use ImageResNetV2, because we have seen thati it is the best performing on the imagenet dataset, the approach in this case has been similar to the one with VGG since we only changed the backbone, one signifacant change that has been apported is the replacement of the fully connected layer with a Global Average Pooling.
+\section{Transfer learning with ImageResNetV2}
+For our last attempt we decided to use ImageResNetV2, the best performing on the ImageNet dataset. The approach in this case has been similar to the one with VGG, since we only changed the backbone. One significant change that has been made is the replacement of the fully connected layer(s) with a Global Average Pooling layer.
 \subsection{Score}
-	The best score of the network was 0.96888.\\
-Obtained setting: \texttt{freeze\_until = 150} and images resized at 348*522 taken in batches of dimension=8.
+	The best score of the network was 0.96888, obtained with the following settings:
+	\begin{itemize}
+		\item	\texttt{freeze\_until = 150};
+		\item image resolution: 348x522;
+		\item batch size = 8.
+	\end{itemize}
 \subsection{Plots}
 Red = validation\\
 Blue = training
