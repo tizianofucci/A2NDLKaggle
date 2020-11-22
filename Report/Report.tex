@@ -25,6 +25,7 @@
     urlcolor = black
 }
 
+
 %To load PoLitecnico's logo
 \usepackage{titling}
 
@@ -63,9 +64,11 @@ contents}}
 \posttitle{\end{center}}
 
 % Here we go
-\title{Artificial Neural Networks and Deep Learning \\ Homework 1 - Image Classification \\ \large version 1.0}
-\author{Frantuma Elia, Fucci Tiziano}
+\title{Artificial Neural Networks and Deep Learning \\ Homework 1 - Image Classification}
+\author{Frantuma Elia - 10567359 - 945729, \\
+		Fucci Tiziano - 10524029 - 946638}
 \date{A.Y. 2020/2021}
+
 \begin{document}
 	\maketitle
 	%Index
@@ -115,12 +118,25 @@ The dataset is composed by .jpg images of different size, divided in two folders
 			\end{itemize}
 
 A JSON file, containing the labels of the training images, is attached to the dataset.
+The dataset requires the training images to be divided into three folders (created manually), corresponding to the three target classes. The division was done with a python script, which is contained in the notebooks.
+
+\textit{Note: the dataset path expected by the script is:}
+
+ ..\textbackslash\textbackslash artificial-neural-networks-and-deep-learning-2020\textbackslash\textbackslash MaskDataset
+
+	\subsection{Data augmentation}
+We have performed data augmentation in order to increase the dataset dimension. Some of the parameters used to perform the transformations are: brightness, zoom, horizontal/vertical shift and flip.
+We didn't use rotation, since we noticed that the filling could reduce the performance of the classifier.
 
 	\section{Validation set}
 
 No automatic validation set is provided. This means that a subset of the training set must be used to perform validation.
 
+In our case, we parametrized the number of training images to be moved into the validation set, with values between 3-15\%.
 
+
+	\section{Test set}
+The test set was left untouched, apart from the creation of one directory, named ``unlabeled'', which contains all the images.
 	\section{Evaluation}
 Submissions are evaluated on multiclass accuracy, which is simply the average number of observations with the correct label.
 To submit a prediction, it is necessary to produce a .csv file containing the predictions associated to each test image. This file has to be submitted to the Kaggle page of the competition to obtain the accuracy score on the test set.
@@ -152,7 +168,6 @@ Here we show how loss and accuracy changed during the network training, both for
 		\includegraphics[scale = 0.5, center]{ex-Novo loss}
 		\caption{Loss plot}
 		\end{figure}
-		\subsection{Comments}
 		
 		\section{Transfer learning with VGG}
 	The final version of the ex-novo architecture was pretty accurate, but we could not achieve better results by just changing the parameters. We decided to use a pre-trained, reliable and successful architecture.\\
@@ -173,9 +188,7 @@ The best score of the network was 0.89333, obtained with the following settings:
 	\end{itemize}
 
 		\subsection{Diagrams}
-		
-		Orange = validation\\
-		Grey = training
+Here we show how loss and accuracy changed during the network training, both for the training (grey) and the validation set (orange).
 		\begin{figure}[H]
 			\includegraphics[scale = 0.5, center]{vgg accuracy}
 			\caption{Accuracy plot}
@@ -184,7 +197,6 @@ The best score of the network was 0.89333, obtained with the following settings:
 			\includegraphics[scale = 0.5, center]{vgg loss}
 			\caption{Loss plot}
 		\end{figure}
-		\subsection{Comments}
 
 \section{Transfer learning with ImageResNetV2}
 For our last attempt we decided to use ImageResNetV2, the best performing on the ImageNet dataset. The approach in this case has been similar to the one with VGG, since we only changed the backbone. One significant change that has been made is the replacement of the fully connected layer(s) with a Global Average Pooling layer.
@@ -196,173 +208,24 @@ For our last attempt we decided to use ImageResNetV2, the best performing on the
 		\item batch size = 8.
 	\end{itemize}
 \subsection{Plots}
-Red = validation\\
-Blue = training
+Here we show how loss and accuracy changed during the network training, both for the training (grey) and the validation set (orange).
 \begin{figure}[H]
-	\includegraphics[scale = 0.6, center]{ResNet accuracy}
+	\includegraphics[scale = 0.5, center]{ResNet accuracy}
 	\caption{Accuracy plot}
 \end{figure}
 \begin{figure}[H]
-	\includegraphics[scale = 0.6, center]{ResNet loss}
+	\includegraphics[scale = 0.5, center]{ResNet loss}
 	\caption{Loss plot}
 \end{figure}
-\subsection{Comments}
-\subsection{Comments}		
 		
 		
 	
-	Users and authorities are provided with mobile devices and access the service through
-	the SafeStreets mobile app. The mobile app communicates with the application layer, which
-	is made by one or more application servers, linked to the database servers. The scale-out approach allows to adjust the number of hardware resources at any time. For what concerns the data access layer, database servers contain sensitive information, such as password hashes, license plate numbers, identification numbers and so on, so it is important to protect all the back-end of the application. In order to do this, the application and data access levels are protected by a firewall that performs traffic control at the level of the single packet, creating a DMZ in which the communication is safe. Another solution to reduce the computational load, as well as the messages, is the use of caches in the presentation tier: the mobile app stores on the mobile device memory part of the user's data, such as the sent reports and the results of reports evaluation, in order to make them available even when the users (or the authorities) have no access to Internet. This avoids many repeated requests for the same data, with heavy impact on the application and data access layers' performance.
-The system also includes a recommender system: exploiting data mining techniques, such as association rules, it can suggest to the authorities of one municipality possible interventions to improve security on the streets.
-
-		
-	\chapter{Implementation, integration and test plan}
-		\section{Implementation and test plan}
-			To facilitate development, the system has been divided into subsystems, each of which corresponds to one of the
-			above mentioned managers. They will be developed individually with a bottom-up approach and the order will be
-			imposed by their importance to the system (how many sub-systems are depending from it) and for the customers.
-			After the development of each subsystem, they will be tested to check their correctness and then
-			some integration tests  will be executed. The system will use also some external systems, in particular Google Maps to have maps
-			always updated and a DBMS to store all the data.
-			\begin{table}[H]
-				\rowcolors{2}{gray!25}{white}	
-				\centering
-				\begin{tabular}[width = \textwidth, position = center]{|c|c|c|}
-					\hline
-					{Subsystem} & {Importance for customers} & {Importance for development}\\
-					\hline
-					\hline
-					Sign-up \& Login manager & Low & High\\
-					\hline
-					Report manager & High & High\\
-					\hline
-					Maps Manager & High & Low\\
-					\hline
-					History & High & Low\\
-					\hline
-					Evaluate & High & High\\
-					\hline
-					Suggestion & Medium & Medium\\
-					\hline
-					Notification Manager & Low & Low\\
-					\hline
-					Position Manager & Low & High\\
-					\hline
-				\end{tabular}
-				\label{tab: }
-			\end{table}
-			\newpage
-			It is important to stress that the reports and evaluation functionalities have to be developed and tested
-			as a first step, because all the others functionalities rely on these two (except the functionalities for the suggestion
-			about improving security on the streets).
-			\begin{itemize}
-				\item \textbf{Sign up \& login manager}: even if these two are not core functionalities of the system, they have a
-					great importance in SafeStreets, because some functionality requires to keep trace in a unique way of
-					who did what (for example history or suggestion); so this part has to be prioritized over the others
-					(except ``Evaluate manager" and ``Report manager"). 
-				\item \textbf{Report manager}: one of the core functionalities, it has to developed with maximum priority
-					and tested as soon as possible, probably its more critic aspects are the OCR and the position. In order
-					to be developed it needs a functioning ``Position manager", otherwise it will not be possible to convert
-					the GPS position into a street name to understand where the traffic violation has been committed.
-					Even if the ``Notification manager"  is in theory a sub-component of this, its development is not so
-					crucial for the correct functioning of the system, so it can be developed in a second moment.  
-				\item \textbf{Maps manager}: this component must be developed after the components necessary to
-					ensure the creation and evaluation of reports (``Evaluate manager'' and ``Report manager'). It is not
-					particularly important to choose the development order between the ``Map manager'' and ``History
-					manager", the important thing is that they are properly developed and integrated before developing
-					the others. This allow the use of the ``Visualize map" functionality, and seeing on the map the streets with
-					most car accidents.
-				\item \textbf{History manager}:  this component must be developed after the components necessary to
-					ensure the creation and evaluation of reports (``Evaluate manager'' and ``Report manager'). It is not
-					particularly important to choose the development order between the ``Map manager'' and ``History
-					manager', the important thing is that they are properly developed and integrated before developing
-					the other. This functionality allows the user to see the chronology of his reports.
-				\item \textbf{Evaluate manager}: it is the second core functionality of the system. This functionality has to be
-					able to correctly handle concurrency and various authorities that want to evaluate reports various
-					reports at the same time. After the correct development of both the core functionalities an integration
-					test is necessary to check the correct functioning of the complete system.  
-				\item \textbf{Suggestion manager}: this is completely uncorrelated with the rest of the system, so it would be
-					better to develop it as last thing, in this way the focus is on the core functionality of the system and
-					the correct integration with the rest of the functionalities.
-				\item \textbf{Position manager}: this component allows to get the road or location on the map of the
-					user, it has the maximum priority, indeed it allows the system to understand where the report has been
-					made.
-				\item \textbf{Notification manager}: this component sends notifications to the users, it can be developed at
-					last, on the top of the complete system because it is not a crucial aspect of the core functionalities.
-			\end{itemize}
-		\section{Integration}
-		The following diagrams show which components will go through the process of 
-			integration for a further clarification. The arrows starts from the component which ‘uses’ the other one.
-			\subsection{Internal component}
-				All the components are implemented and unit tested. Subsequently some components are 
-				integrated and the integration is tested as well. 
-				\newpage
-				\begin{figure}[H]
-						\includegraphics [center]{reportIntegration}
-						%\caption{How reports are evaluated}
-						\label{fig: interfaces}
-				\end{figure}
-				\begin{figure}[H]
-						\includegraphics [center]{notificationIntegration}
-						%\caption{How reports are evaluated}
-						\label{fig: interfaces}
-				\end{figure}
-				\begin{figure}[H]
-						\includegraphics [center]{routerIntegration}
-						%\caption{How reports are evaluated}
-						\label{fig: interfaces}
-				\end{figure}
-				\begin{figure}[H]
-						\includegraphics [center]{DBMS}
-						%\caption{How reports are evaluated}
-						\label{fig: interfaces}
-				\end{figure}
-				
-			
-	%end of fifth chapter
-
-	\chapter{Effort spent}
-		\begin{table}[H]
-			\rowcolors{2}{gray!25}{white}
-			\centering
-			\begin{tabular}[width = \textwidth]{|c|c|c|}
-				%\rowcolor{gray!50}
-				\hline
-				Chapter & Frangi (hours) & Fucci (hours)\\
-				\hline
-				\hline
-				Chapter 1 & 1 & 0.5\\
-				
-				Chapter 2 & 13.5 & 17\\
-				
-				Chapter 3 & 1 & 2\\
-				
-				Chapter 4 & 2 & 4\\
-				
-				Chapter 5 & 8 & 1.5\\
-				
-				Total hours: & 25.5 & 25\\
-				\hline
-			\end{tabular}
-			\label{tab: }
-		\end{table}
-	%end of sixth chapter
+	%end of third chapter
 	\chapter{References}
-		\section{Bibliography}
-		\begin{itemize}
-			\item Course slides from Software Engineering 2 - \emph{Professor Elisabetta Di Nitto};
-			\item SafeStreets Requirement Analysis and Specification Document - \emph{Alberto Frangi, Tiziano Fucci};
-			\item 1016-1987, IEEE Recommended Practice for Software Design Descriptions - \emph{IEEE}.
-		\end{itemize}
 		\section{Links}
-		\section{Tools}	
-		\begin{itemize}		
-		\item StarUML 3.1.0 - to draw and export UML diagrams;
-		\item \url{lucidchart.com} - to draw, share and export sequence diagrams;
-		\item \url{draw.io} - to draw and export other diagrams;
-		\item TeX Live 2019 - to write and organize this document;
-		\item GitHub 2.23.0 - version control.
-		\end{itemize}
-	%end of seventh chapter
+
+\begin{itemize}
+	\item GitHub repository of the project: \url{https://github.com/tizianofucci/A2NDLKaggle}
+\end{itemize}
+
 \end{document}

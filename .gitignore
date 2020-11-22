@@ -15,6 +15,3 @@ my_model/
 *.synctex.gz
 *.toc
 
-#ignore temporary PDF
-Report/Report.pdf
-
