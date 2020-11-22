@@ -169,8 +169,19 @@ To submit a prediction, it is necessary to produce a .csv file containing the pr
 	\end{itemize}
 		\subsection{Score}
 			The best score of the network was 0.89333.\\
-			Obtained setting: \texttt{freeze\_until = 11} and one fully connnected layer with 32 neurons before the softmax layer.
+			Obtained setting: \texttt{freeze\_until = 11} and one fully connnected layer with 32 neurons before the softmax layer.\newpage
 		\subsection{Plots}
+		
+		Orange = validation\\
+		Grey = training
+		\begin{figure}[H]
+			\includegraphics[scale = 0.6, center]{vgg accuracy}
+			\caption{Accuracy plot}
+		\end{figure}
+		\begin{figure}[H]
+			\includegraphics[scale = 0.6, center]{vgg loss}
+			\caption{Loss plot}
+		\end{figure}
 		\subsection{Comments}
 
 \section{Transfer learning(ImageResNetV2)}
@@ -179,6 +190,17 @@ For our last attempt we decided to use ImageResNetV2, because we have seen thati
 	The best score of the network was 0.96888.\\
 Obtained setting: \texttt{freeze\_until = 150} and images resized at 348*522 taken in batches of dimension=8.
 \subsection{Plots}
+Red = validation\\
+Blue = training
+\begin{figure}[H]
+	\includegraphics[scale = 0.6, center]{ResNet accuracy}
+	\caption{Accuracy plot}
+\end{figure}
+\begin{figure}[H]
+	\includegraphics[scale = 0.6, center]{ResNet loss}
+	\caption{Loss plot}
+\end{figure}
+\subsection{Comments}
 \subsection{Comments}		
 		
 		
